@@ -158,7 +158,8 @@
       const tile = document.createElement('div');
       tile.classList.add('tile');
       tile.draggable = true;
-      tile.dataset.correct = `${row}-${col}`;
+      tile.dataset.correctRow = row;
+      tile.dataset.correctCol = col;
       tile.dataset.bg = `-${col * tileSize}px -${row * tileSize}px`;
       tile.style.backgroundPosition = tile.dataset.bg;
       positions.push(tile);
@@ -177,7 +178,8 @@
   for (let i = 0; i < gridSize * gridSize; i++) {
     const cell = document.createElement('div');
     cell.classList.add('tile', 'empty');
-    cell.dataset.index = i;
+    cell.dataset.row = Math.floor(i / gridSize);
+    cell.dataset.col = i % gridSize;
     cell.addEventListener('dragover', e => e.preventDefault());
     cell.addEventListener('drop', handleDrop);
     target.appendChild(cell);
@@ -186,7 +188,8 @@
   function handleDragStart(e) {
     const tile = e.target;
     e.dataTransfer.setData('bg', tile.dataset.bg);
-    e.dataTransfer.setData('correct', tile.dataset.correct);
+    e.dataTransfer.setData('correctRow', tile.dataset.correctRow);
+    e.dataTransfer.setData('correctCol', tile.dataset.correctCol);
     e.dataTransfer.setData('from', tile.parentElement.id);
     e.dataTransfer.setData('html', tile.outerHTML);
     tile.classList.add('dragging');
@@ -215,41 +218,33 @@
     if (dragging) dragging.classList.remove('dragging');
   });
 
-// Перевірка на виграш
-document.getElementById('checkButton').addEventListener('click', () => {
-  const targetTiles = target.children;
-  let isWin = true;
-  const expectedPositions = [];
-
-  for (let i = 0; i < gridSize * gridSize; i++) {
-    const targetTile = targetTiles[i];
-    const targetIndex = Array.prototype.indexOf.call(targetTile.children, targetTile.firstChild);
-    const targetRow = Math.floor(targetIndex / gridSize);
-    const targetCol = targetIndex % gridSize;
-    expectedPositions.push(`${targetRow}-${targetCol}`);
-  }
-
-  for (let i = 0; i < gridSize * gridSize; i++) {
-    const targetTile = targetTiles[i];
-    const targetIndex = Array.prototype.indexOf.call(targetTile.children, targetTile.firstChild);
-    const targetRow = Math.floor(targetIndex / gridSize);
-    const targetCol = targetIndex % gridSize;
-    const expected = expectedPositions[i];
-
-    if (targetRow !== parseInt(expected.split('-')[0]) || targetCol !== parseInt(expected.split('-')[1])) {
-      isWin = false;
-      break;
+  // Перевірка на виграш
+  document.getElementById('checkButton').addEventListener('click', () => {
+    const targetCells = target.children;
+    let isWin = true;
+    
+    // Перевіряємо кожну клітинку
+    for (let i = 0; i < targetCells.length; i++) {
+      const cell = targetCells[i];
+      const tile = cell.firstChild;
+      
+      // Якщо клітинка порожня або плитка не на своєму місці
+      if (!tile || 
+          tile.dataset.correctRow != cell.dataset.row || 
+          tile.dataset.correctCol != cell.dataset.col) {
+        isWin = false;
+        break;
+      }
     }
-  }
-
-  if (isWin) {
-    message.textContent = '🎉 Ти уволодів цими чарами';
-    message.style.display = 'block';
-  } else {
-    message.textContent = 'Ви не здійснили перемогу. Перевірте розташування плиток.';
-    message.style.display = 'block';
-  }
-});
+    
+    if (isWin) {
+      message.textContent = '🎉 Ти уволодів цими чарами';
+      message.style.display = 'block';
+    } else {
+      message.textContent = 'Ви не здійснили перемогу. Перевірте розташування плиток.';
+      message.style.display = 'block';
+    }
+  });
 </script>
   <audio id="bg-audio" autoplay loop muted>
   <source src="music.mp3" type="audio/mpeg">
