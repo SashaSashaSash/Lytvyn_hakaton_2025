@@ -1,0 +1,613 @@
+
+/* загальні стилі */
+a{
+  text-decoration: none;
+}
+body{
+  padding-top: 30px;
+}
+/* стилі для заголовка */
+nav{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 30px;
+  width: 500px;
+  height: 60px;
+  position: relative;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+.nav{
+  text-align: center;
+}
+.nav button {
+      background: black;
+      color: white;
+      font-size: 25px;
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+}
+.nav button:hover {
+  background: #373047;
+  transform: scale(1.1);
+}
+/* стилі для першої сторінки  */
+.index {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #373047;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .index:hover{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .parallax-container {
+    width: 100vw;
+    height: 100vh;
+    perspective: 1000px;
+    overflow: hidden;
+  }
+
+  .parallax-background {
+    width: 110%;
+    height: 110%;
+    background-image: url('gnome-first-picture.png');
+    background-size: cover;
+    background-position: center;
+    transform: translate(-5%, -5%);
+    transition: transform 0.1s linear;
+  }
+
+  /* Стилі для основної сторінки з вступом */
+  .container{
+    background: #373047;
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    border: 5px solid #0ff;
+  }
+  .osnovna {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #1d1f1f;
+    color: white;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .osnovna:hover{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .osnovna h1 {
+    text-align: center;
+    color: white;
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  .osnovna content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .roww {
+    display: flex;
+    gap: 20px;
+  }
+  .columnn {
+    flex: 1;
+  }
+  .osnovna img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  .osnovna p {
+    font-size: 20px;
+    line-height: 1.5;
+    color: white;
+  }
+  @media (max-width: 1000px) {
+    .roww {
+      flex-direction: column;
+    }
+  }
+
+  /* стилі для сторінки з вибором картинки для пазлів */
+  .puzzle{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #1d1f1f;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .puzzle:hover{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .puzzle h1 {
+    text-align: center;
+    color: white;
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  .puzzle .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .puzzle .grid img {
+    width: 100%;
+    border-radius: 10px;
+    opacity: 0.7;
+  }
+  .puzzle img:hover{
+    border-radius: 20px;
+    opacity: 1;
+  }
+  @media (max-width: 1000px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* стилі для сторінки з картинками */
+  .picture {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #1d1f1f;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .picture:hover{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .picture .story {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    color: white;
+  }
+
+  .picture .question {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 30px auto;
+    text-align: center;
+    font-size: 20px;
+    width: 80%;
+    border-radius: 20px;
+  }
+
+  .picture .choice-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .picture .choice-buttons button {
+    background: black;
+    color: white;
+    font-size: 20px;
+    padding: 10px 50px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .picture .choice-buttons button:hover {
+    background: #373047;
+    transform: scale(1.1);
+  }
+/* стилі для сайту розповідь */
+.tell{
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #1d1f1f;
+  opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 1s ease, transform 1s ease;
+}
+.tell:hover{
+  opacity: 1;
+  transform: scale(1);
+}
+.tell .intro-text h2 {
+  color: #373047;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.tell .intro-text p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: white;
+}
+
+.tell .start-button {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.tell .start-button button {
+  background: black;
+  color: white;
+  font-size: 20px;
+  padding: 15px 100px;
+  border-radius: 30px;
+  border: none;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.tell .start-button button:hover {
+  background: #373047;
+  transform: scale(1.1);
+}
+
+.tell-two {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1d1f1f;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .tell-two .container {
+      background-color: #373047;
+      padding: 40px;
+      border: 5px solid #0ff;
+      border-radius: 20px;
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .tell-two .container.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .tell-two .timer {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #00ffff;
+      font-weight: bold;
+    }
+
+    .tell-two .story {
+      font-size: 22px;
+      margin-bottom: 25px;
+      animation: fadeInText 0.8s ease-in-out;
+      line-height: 1.5;
+      color: white;
+    }
+
+    .tell-two .choices button {
+      background-color: #333;
+      color: white;
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      padding: 12px 24px;
+      margin: 10px 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .tell-two .choices button:hover {
+      background-color: #00d9ff;
+      color: white;
+      transform: scale(1.05);
+    }
+    .tell-a{
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: black;
+      color: white;
+      font-size: 25px;
+      margin: 0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+      text-decoration: none;
+      z-index: 9999;
+    }
+    .tell-a:hover{
+      background: #373047;
+      transform: scale(1.1);
+    }
+    @keyframes fadeInText {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+/* стилі для пазлів */
+.puzzle {
+  font-family: Arial, sans-serif;
+  background: #1d1f1f;
+  color: white;
+  padding-top: 30px;
+  margin: 0;
+}
+
+.puzzle h1 {
+  text-align: center;
+  color: white;
+}
+
+#puzzle-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.puzzle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  padding: 10px;
+  background: #373047;
+  border-radius: 10px;
+}
+
+.tile {
+  width: 100px;
+  height: 100px;
+  background-image: url('puzzle-four.jpg');
+  background-size: 300px 300px;
+  border: 1px solid #0ff;
+  border-radius: 5px;
+  cursor: grab;
+}
+
+.empty {
+  background: transparent;
+  border: 1px dashed #999;
+}
+
+#message {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 24px;
+  color: #0ff;
+  display: none;
+}
+
+#checkButton {
+  display: block;
+  margin: 30px auto 0;
+  padding: 15px 40px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+}
+
+#checkButton:hover {
+  background: #373047;
+  transform: scale(1.05);
+}
+
+/* стилі для карток */
+.pict {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #1d1f1f;
+  color: white;
+}
+
+.pict .osnovna {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.pict .osnovna:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pict .container {
+  background: #373047;
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+  border: 5px solid #0ff;
+}
+
+.pict h1 {
+  text-align: center;
+  color: white;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.pict #game-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  justify-items: center;
+}
+
+.pict .card {
+  width: 80px;
+  height: 120px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  perspective: 1000px;
+  position: relative;
+}
+
+.pict .card-inner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.pict .card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.pict .card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+.pict .card-front {
+  background-color: #333;
+}
+
+.pict .card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.pict .card-back {
+  transform: rotateY(180deg);
+}
+
+.pict .matched {
+  border: 2px solid #0ff;
+}
+
+.pict #message-box {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  text-align: center;
+  z-index: 100;
+}
+
+.pict #message-box button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #0ff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.pict #message-box button:hover {
+  background-color: #00d9ff;
+}
+
+
+
+/* стилі для розповіді */
+.tell-two {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1d1f1f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.tell-two .container {
+  background-color: #373047;
+  padding: 40px;
+  border: 5px solid #0ff;
+  border-radius: 20px;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.tell-two .container.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tell-two .timer {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #00ffff;
+  font-weight: bold;
+}
+
+.tell-two .story {
+  font-size: 22px;
+  margin-bottom: 25px;
+  animation: fadeInText 0.8s ease-in-out;
+  line-height: 1.5;
+  color: white;
+}
+
+.tell-two .choices button {
+  background-color: #333;
+  color: white;
+  border: 2px solid #0ff;
+  border-radius: 12px;
+  padding: 12px 24px;
+  margin: 10px 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tell-two .choices button:hover {
+  background-color: #00d9ff;
+  color: white;
+  transform: scale(1.05);
+}
+
+@keyframes fadeInText {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}

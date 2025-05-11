@@ -1,0 +1,55 @@
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Світ міфів</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="picture">
+  <div class="container">
+    <nav>
+      <div class="nav">
+        <a href="puzzle.html">
+          <button>Пазл</button>
+        </a>
+        <a href="osnovna.html">
+          <button>Головна</button>
+        </a>
+        <a href="tell.html">
+          <button>Розповідь</button>
+        </a>
+      </div>
+    </nav>
+    <div class="story">
+      🌸 <strong>Магічна гра пам’яті</strong><br>
+      У глибинах зачарованого лісу заховано безліч чарівних карток.<br>
+      За кожною з них — істота з легенд: гноми, дракони, ельфи чи духи природи.<br><br>
+      🔮 <strong>Твоє завдання — віднайти всі однакові пари.</strong><br>
+      🃏 Натисни на дві карти, щоб пробудити їхню магію.<br>
+      ✨ Якщо істоти з’являться однакові — вони радо з’єднаються і зникнуть у сяйві чарів.<br>
+      ❌ Якщо ж вони не впізнають одне одного — знову сховаються, чекаючи на вірного гравця.<br><br>
+      🧠 Пам’ятай: сила пам’яті — ключ до перемоги!<br>
+      Розгадай усі пари — і зачарований ліс відкриє тобі свої таємниці...
+    </div>
+    <div class="question">Ви хочете пограти ???</div>
+    <div class="choice-buttons">
+    <a href="picture-two.html">
+      <button>Так</button>
+    </a>
+      <button id="no-button">Ні</button>
+    </div>
+  </div>
+  <script>  
+    const noButton = document.getElementById("no-button");
+
+    noButton.addEventListener("click", () => {
+    const maxX = window.innerWidth - noButton.offsetWidth;
+    const maxY = window.innerHeight - noButton.offsetHeight;
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noButton.style.position = "absolute";
+    noButton.style.left = `${randomX}px`;
+    noButton.style.top = `${randomY}px`;
+  });</script></script>
+</body>
+</html>

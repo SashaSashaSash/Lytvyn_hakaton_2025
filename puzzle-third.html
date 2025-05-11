@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Пазл 3x3</title>
+  <style>
+    a{
+      text-decoration: none;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #1d1f1f;
+      color: white;
+      padding-top: 30px;
+      margin: 0;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    body:hover{
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .container {
+      background: #373047;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      border: 5px solid #0ff;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: white;
+      border-radius: 30px;
+      width: 500px;
+      height: 60px;
+      margin: 0 auto 30px;
+    }
+
+    .nav button {
+      background: black;
+      color: white;
+      font-size: 25px;
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .nav button:hover {
+      background: #373047;
+      transform: scale(1.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+    }
+
+    #puzzle-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .puzzle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      padding: 10px;
+      background: #373047;
+      border-radius: 10px;
+    }
+
+    .tile {
+      width: 100px;
+      height: 100px;
+      background-image: url('puzzle-three.jpg');
+      background-size: 300px 300px;
+      border: 1px solid #0ff;
+      border-radius: 5px;
+      cursor: grab;
+    }
+
+    .empty {
+      background: transparent;
+      border: 1px dashed #999;
+    }
+
+    #message {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 24px;
+      color: #0ff;
+      display: none;
+    }
+
+    #checkButton {
+      display: block;
+      margin: 30px auto 0;
+      padding: 15px 40px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    #checkButton:hover {
+      background: #373047;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="nav">
+        <a href="osnovna.html">
+            <button>Головна</button>
+          </a>
+          <a href="picture.html">
+            <button>Картинки</button>
+          </a>
+          <a href="tell.html">
+            <button>Розповідь</button>
+          </a>
+      </div>
+    </nav>
+    <h1>Збери пазл 3x3</h1>
+    <div id="puzzle-container">
+      <div id="source" class="puzzle-grid"></div>
+      <div id="target" class="puzzle-grid"></div>
+    </div>
+    <button id="checkButton">Готово</button>
+    <div id="message"></div>
+  </div>
+
+<script>
+  const gridSize = 3;
+  const tileSize = 100;
+  const source = document.getElementById('source');
+  const target = document.getElementById('target');
+  const message = document.getElementById('message');
+  const positions = [];
+
+  // Створюємо правильні плитки
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col < gridSize; col++) {
+      const tile = document.createElement('div');
+      tile.classList.add('tile');
+      tile.draggable = true;
+      tile.dataset.correct = `${row}-${col}`;
+      tile.dataset.bg = `-${col * tileSize}px -${row * tileSize}px`;
+      tile.style.backgroundPosition = tile.dataset.bg;
+      positions.push(tile);
+    }
+  }
+
+  // Перемішуємо
+  positions.sort(() => Math.random() - 0.5);
+
+  positions.forEach(tile => {
+    tile.addEventListener('dragstart', handleDragStart);
+    source.appendChild(tile);
+  });
+
+  // Створюємо порожні клітинки
+  for (let i = 0; i < gridSize * gridSize; i++) {
+    const cell = document.createElement('div');
+    cell.classList.add('tile', 'empty');
+    cell.dataset.index = i;
+    cell.addEventListener('dragover', e => e.preventDefault());
+    cell.addEventListener('drop', handleDrop);
+    target.appendChild(cell);
+  }
+
+  function handleDragStart(e) {
+    const tile = e.target;
+    e.dataTransfer.setData('bg', tile.dataset.bg);
+    e.dataTransfer.setData('correct', tile.dataset.correct);
+    e.dataTransfer.setData('from', tile.parentElement.id);
+    e.dataTransfer.setData('html', tile.outerHTML);
+    tile.classList.add('dragging');
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    const html = e.dataTransfer.getData('html');
+    const from = e.dataTransfer.getData('from');
+
+    // якщо є щось усередині — вертаємо його назад до source
+    if (e.target.firstChild) {
+      const oldTile = e.target.firstChild;
+      source.appendChild(oldTile);
+    }
+
+    // замінюємо вміст
+    e.target.innerHTML = html;
+    const newTile = e.target.firstChild;
+    newTile.addEventListener('dragstart', handleDragStart);
+    e.target.classList.remove('empty');
+  }
+
+  document.addEventListener('dragend', () => {
+    const dragging = document.querySelector('.dragging');
+    if (dragging) dragging.classList.remove('dragging');
+  });
+
+// Перевірка на виграш
+document.getElementById('checkButton').addEventListener('click', () => {
+  const targetTiles = target.children;
+  let isWin = true;
+  const expectedPositions = [];
+
+  for (let i = 0; i < gridSize * gridSize; i++) {
+    const targetTile = targetTiles[i];
+    const targetIndex = Array.prototype.indexOf.call(targetTile.children, targetTile.firstChild);
+    const targetRow = Math.floor(targetIndex / gridSize);
+    const targetCol = targetIndex % gridSize;
+    expectedPositions.push(`${targetRow}-${targetCol}`);
+  }
+
+  for (let i = 0; i < gridSize * gridSize; i++) {
+    const targetTile = targetTiles[i];
+    const targetIndex = Array.prototype.indexOf.call(targetTile.children, targetTile.firstChild);
+    const targetRow = Math.floor(targetIndex / gridSize);
+    const targetCol = targetIndex % gridSize;
+    const expected = expectedPositions[i];
+
+    if (targetRow !== parseInt(expected.split('-')[0]) || targetCol !== parseInt(expected.split('-')[1])) {
+      isWin = false;
+      break;
+    }
+  }
+
+  if (isWin) {
+    message.textContent = '🎉 Ти уволодів цими чарами';
+    message.style.display = 'block';
+  } else {
+    message.textContent = 'Ви не здійснили перемогу. Перевірте розташування плиток.';
+    message.style.display = 'block';
+  }
+});
+</script>
+
+</body>
+</html>
