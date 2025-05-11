@@ -1,0 +1,35 @@
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Магічна гра пам'яті</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="pict">
+  <div class="container">
+  <a href="picture.html">
+    <h1>Магічна гра пам'яті</h1>
+  </a>
+    <div id="game-container"></div>
+  </div>
+
+  <div id="message-box">
+    <p>Ви виграли! Вам сподобалась гра?</p>
+    <button onclick="handleFeedback(true)">Так</button>
+    <button onclick="handleFeedback(false)">Ні</button>
+  </div>
+
+  <audio id="bg-audio" autoplay loop muted>
+  <source src="music-picture.mp3" type="audio/mpeg">
+</audio>
+<!-- скрипт для аудіо -->
+<script>
+  const audio = document.getElementById("bg-audio");
+  audio.volume = 0.05;
+  window.addEventListener('click', () => {
+    audio.muted = false;
+    audio.play();
+  }, { once: true });
+</script>
+  <script src="script.js"></script>
+</body>
+</html>
