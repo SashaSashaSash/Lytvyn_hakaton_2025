@@ -12,7 +12,18 @@
     <div class="story" id="story"></div>
     <div class="choices" id="choices"></div>
   </div>
-
+  <audio id="bg-audio" autoplay loop muted>
+  <source src="music-tell.mp3" type="audio/mpeg">
+</audio>
+<!-- скрипт для аудіо -->
+<script>
+  const audio = document.getElementById("bg-audio");
+  audio.volume = 0.05;
+  window.addEventListener('click', () => {
+    audio.muted = false;
+    audio.play();
+  }, { once: true });
+</script>
   <script src="script.js">  
   </script>
 </body>
